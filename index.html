@@ -31,7 +31,7 @@
             margin-bottom: 5px;
             font-weight: bold;
         }
-        input, button, select {
+        input, button {
             width: 100%;
             padding: 8px;
             border: 1px solid #ddd;
@@ -56,8 +56,8 @@
     <h2>Login</h2>
     <form id="loginForm">
         <div class="form-group">
-            <label for="username">Usuário:</label>
-            <input type="text" id="username" name="username" required>
+            <label for="username">E-mail:</label>
+            <input type="email" id="username" name="username" required>
         </div>
         <div class="form-group">
             <label for="password">Senha:</label>
@@ -82,26 +82,32 @@
     </form>
 </div>
 
-<div id="dashboard" class="container hidden">
-    <h2>Dashboard de Visitas</h2>
-    <p>Aqui você pode ver as visitas agendadas.</p>
-    <!-- Tabela ou outro método para exibir dados -->
-</div>
-
 <script>
     const loginForm = document.getElementById('loginForm');
     const bookingForm = document.getElementById('bookingForm');
     const loginSection = document.getElementById('login');
     const bookingSection = document.getElementById('booking');
-    const dashboardSection = document.getElementById('dashboard');
+
+    // Lista de usuários permitidos
+    const users = [
+        { email: 'gabriel@previniserv.com.br', password: '@BB2024bb' },
+        // Adicione outros usuários conforme necessário
+    ];
 
     loginForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        // Aqui você faria uma verificação de autenticação
-        alert('Usuário autenticado com sucesso!');
-        loginSection.classList.add('hidden');
-        bookingSection.classList.remove('hidden');
-        // dashboardSection.classList.remove('hidden'); // Depende das permissões do usuário
+        const emailInput = document.getElementById('username').value;
+        const passwordInput = document.getElementById('password').value;
+
+        const userFound = users.find(user => user.email === emailInput && user.password === passwordInput);
+
+        if (userFound) {
+            alert('Usuário autenticado com sucesso!');
+            loginSection.classList.add('hidden');
+            bookingSection.classList.remove('hidden');
+        } else {
+            alert('Email ou senha incorretos. Por favor, tente novamente.');
+        }
     });
 
     bookingForm.addEventListener('submit', (e) => {
