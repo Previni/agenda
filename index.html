@@ -48,6 +48,18 @@
         button:hover {
             background-color: #45a049;
         }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
     </style>
 </head>
 <body>
@@ -80,6 +92,22 @@
         </div>
         <button type="submit">Agendar</button>
     </form>
+    <button id="goToDashboard">Ver Visitas Agendadas</button>
+</div>
+
+<div id="dashboard" class="container hidden">
+    <h2>Dashboard de Visitas</h2>
+    <table id="visitsTable">
+        <thead>
+            <tr>
+                <th>Visitante</th>
+                <th>Data da Visita</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- As visitas serão acrescentadas aqui -->
+        </tbody>
+    </table>
 </div>
 
 <script>
@@ -87,12 +115,15 @@
     const bookingForm = document.getElementById('bookingForm');
     const loginSection = document.getElementById('login');
     const bookingSection = document.getElementById('booking');
+    const dashboardSection = document.getElementById('dashboard');
+    const visitsTable = document.getElementById('visitsTable').getElementsByTagName('tbody')[0];
+    const goToDashboardButton = document.getElementById('goToDashboard');
 
-    // Lista de usuários permitidos
     const users = [
         { email: 'gabriel@previniserv.com.br', password: '@BB2024bb' },
-        // Adicione outros usuários conforme necessário
     ];
+
+    const visits = []; // Array para armazenar as visitas
 
     loginForm.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -114,8 +145,23 @@
         e.preventDefault();
         const visitorName = document.getElementById('visitorName').value;
         const visitDate = document.getElementById('visitDate').value;
+        
+        visits.push({visitorName, visitDate}); // Armazena a visita agendada
         alert(`Visita agendada para ${visitorName} na data ${visitDate}`);
-        bookingForm.reset();
+        bookingForm.reset(); // Reseta o formulário
+    });
+
+    goToDashboardButton.addEventListener('click', () => {
+        bookingSection.classList.add('hidden');
+        dashboardSection.classList.remove('hidden');
+        
+        // Lista todas as visitas agendadas
+        visitsTable.innerHTML = '';
+        visits.forEach(visit => {
+            const row = visitsTable.insertRow();
+            row.insertCell(0).textContent = visit.visitorName;
+            row.insertCell(1).textContent = visit.visitDate;
+        });
     });
 </script>
 
