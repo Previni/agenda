@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Agendamento de Visitas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .hidden {
+            display: none;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, button, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: 'Montserrat', Arial, sans-serif;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div id="login" class="container">
+    <h2>Login</h2>
+    <form id="loginForm">
+        <div class="form-group">
+            <label for="username">Usuário:</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Senha:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit">Entrar</button>
+    </form>
+</div>
+
+<div id="booking" class="container hidden">
+    <h2>Agendar Visita</h2>
+    <form id="bookingForm">
+        <div class="form-group">
+            <label for="visitorName">Nome Completo do Visitante:</label>
+            <input type="text" id="visitorName" name="visitorName" required>
+        </div>
+        <div class="form-group">
+            <label for="visitDate">Data da Visita:</label>
+            <input type="date" id="visitDate" name="visitDate" required>
+        </div>
+        <button type="submit">Agendar</button>
+    </form>
+</div>
+
+<div id="dashboard" class="container hidden">
+    <h2>Dashboard de Visitas</h2>
+    <p>Aqui você pode ver as visitas agendadas.</p>
+    <!-- Tabela ou outro método para exibir dados -->
+</div>
+
+<script>
+    const loginForm = document.getElementById('loginForm');
+    const bookingForm = document.getElementById('bookingForm');
+    const loginSection = document.getElementById('login');
+    const bookingSection = document.getElementById('booking');
+    const dashboardSection = document.getElementById('dashboard');
+
+    loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        // Aqui você faria uma verificação de autenticação
+        alert('Usuário autenticado com sucesso!');
+        loginSection.classList.add('hidden');
+        bookingSection.classList.remove('hidden');
+        // dashboardSection.classList.remove('hidden'); // Depende das permissões do usuário
+    });
+
+    bookingForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const visitorName = document.getElementById('visitorName').value;
+        const visitDate = document.getElementById('visitDate').value;
+        alert(`Visita agendada para ${visitorName} na data ${visitDate}`);
+        bookingForm.reset();
+    });
+</script>
+
+</body>
+</html>
